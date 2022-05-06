@@ -3,7 +3,7 @@ Go to the source directory and open terminal, please run this command.<br>
 > npm install
 
 ### To Run Test
-> truffle compile
+> truffle compile <br>
 > truffle test
 
 ### Config
