@@ -26,6 +26,15 @@ const mockDegreeInfo = {
     major: 'Computer Science',
     year: '2020'
   }
+
+  const mockEmployerResponse = {
+    '0': 'monirul',
+    '1': 'islam',
+    '2': 'Columbia University',
+    '3': 'Computer Science',
+    '4': 'Bachelor of Science',
+    '5': '2020',
+  }
   
 
 contract('Verification', () => {
@@ -55,6 +64,20 @@ contract('Verification', () => {
         assert.equal(result['major'], mockDegreeInfo['major'])
         assert.equal(result['degree'], mockDegreeInfo['degree'])
         assert.equal(result['year'], mockDegreeInfo['year'])
+    });
+
+    it('INTEGRATION_TEST_method employerHandler should return candidate degree values', async()=> {
+        const verf = await Verification.deployed();
+        await verf.candidateHandler(1234,"monirul","islam","1234STREET","1234UNI");
+        await verf.institutionHandler("Columbia University",1234,"Bachelor of Science","Computer Science",2020);
+        const result = await verf.employerHandler(1234)
+        // returned values are accesssed by index in solidity when we return multiple values
+        assert.equal(result['0'], mockEmployerResponse['0'])
+        assert.equal(result['1'], mockEmployerResponse['1'])
+        assert.equal(result['2'], mockEmployerResponse['2'])
+        assert.equal(result['3'], mockEmployerResponse['3'])
+        assert.equal(result['4'], mockEmployerResponse['4'])
+        assert.equal(result['5'], mockEmployerResponse['5'])
     });
 
 });
