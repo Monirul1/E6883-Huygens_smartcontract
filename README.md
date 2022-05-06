@@ -2,6 +2,10 @@
 Go to the source directory and open terminal, please run this command.<br>
 > npm install
 
+### To Run Test
+> truffle compile
+> truffle test
+
 ### Config
 Rename .env.example to .env and open it, then fill the Huygens\_dev/huygens url and account's private key.<br> 
 > HUYGENS\_DEV\_URL=http://18.182.45.18:8765<br>
