@@ -47,8 +47,8 @@ contract('Verification', () => {
 
     it('TEST_method candidateHandler should set values to map storeCandidateInfo', async()=> {
         const verf = await Verification.deployed();
-        await verf.candidateHandler(1234,"monirul","islam","1234STREET","1234UNI");
-        const result = await verf.storeCandidateInfo(1234)
+        await verf.candidateHandler("1234","monirul","islam","1234STREET","1234UNI");
+        const result = await verf.storeCandidateInfo("1234")
         assert.equal(result['ssn'], mockCandidate['ssn'])
         assert.equal(result['firstName'], mockCandidate['firstName'])
         assert.equal(result['lastName'], mockCandidate['lastName'])
@@ -58,8 +58,8 @@ contract('Verification', () => {
 
     it('TEST_method institutionHandler should set values to map storeCandidateDegreeInfo', async()=> {
         const verf = await Verification.deployed();
-        await verf.institutionHandler("Columbia University",1234,"Bachelor of Science","Computer Science",2020);
-        const result = await verf.storeCandidateDegreeInfo(1234)
+        await verf.institutionHandler("Columbia University","1234","Bachelor of Science","Computer Science","2020");
+        const result = await verf.storeCandidateDegreeInfo("1234")
         assert.equal(result['university'], mockDegreeInfo['university'])
         assert.equal(result['major'], mockDegreeInfo['major'])
         assert.equal(result['degree'], mockDegreeInfo['degree'])
@@ -68,9 +68,9 @@ contract('Verification', () => {
 
     it('INTEGRATION_TEST_method employerHandler should return candidate degree values', async()=> {
         const verf = await Verification.deployed();
-        await verf.candidateHandler(1234,"monirul","islam","1234STREET","1234UNI");
-        await verf.institutionHandler("Columbia University",1234,"Bachelor of Science","Computer Science",2020);
-        const result = await verf.employerHandler(1234)
+        await verf.candidateHandler("1234","monirul","islam","1234STREET","1234UNI");
+        await verf.institutionHandler("Columbia University","1234","Bachelor of Science","Computer Science","2020");
+        const result = await verf.employerHandler("1234")
         // returned values are accesssed by index in solidity when we return multiple values
         assert.equal(result['0'], mockEmployerResponse['0'])
         assert.equal(result['1'], mockEmployerResponse['1'])

@@ -6,7 +6,7 @@ import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 contract Verification {
     struct CandidateRequest{
-        int ssn;
+        string ssn;
         string firstName;
         string lastName;
         string homeAddress;
@@ -17,7 +17,7 @@ contract Verification {
         string university;
         string degreeName;
         string major;
-        int year;
+        string year;
     }
 
 
@@ -34,29 +34,29 @@ contract Verification {
     }
 
     // mapping when candidate joins the contract
-    mapping(int => DegreeInfo) public storeCandidateDegreeInfo;
-    mapping(int => CandidateRequest) public storeCandidateInfo;
+    mapping(string => DegreeInfo) public storeCandidateDegreeInfo;
+    mapping(string => CandidateRequest) public storeCandidateInfo;
      
     address public manager;
     constructor() {
         manager = msg.sender;
     }
 
-    function candidateHandler(int ssn,  string memory firstName,  string memory lastName, string memory homeAddress, string memory uni) public {
+    function candidateHandler(string memory ssn,  string memory firstName,  string memory lastName, string memory homeAddress, string memory uni) public {
         storeCandidateInfo[ssn] = CandidateRequest(ssn, firstName, lastName, homeAddress, uni);
     }
 
-    function institutionHandler(string memory university, int ssn, string memory degreeName, string memory major, int year) public {
+    function institutionHandler(string memory university, string memory ssn, string memory degreeName, string memory major, string memory year) public {
         storeCandidateDegreeInfo[ssn] = DegreeInfo(university, degreeName, major, year);
     }
 
-    function employerHandler(int ssn) public view returns(string memory, string memory, string memory, string memory, string memory, int  ) {
+    function employerHandler(string memory ssn) public view returns(string memory, string memory, string memory, string memory, string memory, string memory) {
         string memory firstName = storeCandidateInfo[ssn].firstName;
         string memory lastName = storeCandidateInfo[ssn].lastName;
         string memory university = storeCandidateDegreeInfo[ssn].university;
         string memory major = storeCandidateDegreeInfo[ssn].major;
         string memory degreeName = storeCandidateDegreeInfo[ssn].degreeName;
-        int year = storeCandidateDegreeInfo[ssn].year;
+        string memory year = storeCandidateDegreeInfo[ssn].year;
         return (firstName,lastName,university,major,degreeName,year);
     }
 }
