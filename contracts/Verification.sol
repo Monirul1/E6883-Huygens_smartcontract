@@ -18,6 +18,7 @@ contract Verification {
         string degreeName;
         string major;
         string year;
+        string gpa;
     }
 
 
@@ -46,17 +47,18 @@ contract Verification {
         storeCandidateInfo[ssn] = CandidateRequest(ssn, firstName, lastName, homeAddress, uni);
     }
 
-    function institutionHandler(string memory university, string memory ssn, string memory degreeName, string memory major, string memory year) public {
-        storeCandidateDegreeInfo[ssn] = DegreeInfo(university, degreeName, major, year);
+    function institutionHandler(string memory university, string memory ssn, string memory degreeName, string memory major, string memory year, string memory gpa) public {
+        storeCandidateDegreeInfo[ssn] = DegreeInfo(university, degreeName, major, year, gpa);
     }
 
-    function employerHandler(string memory ssn) public view returns(string memory, string memory, string memory, string memory, string memory, string memory) {
+    function employerHandler(string memory ssn) public view returns(string memory, string memory, string memory, string memory, string memory, string memory, string memory) {
         string memory firstName = storeCandidateInfo[ssn].firstName;
         string memory lastName = storeCandidateInfo[ssn].lastName;
         string memory university = storeCandidateDegreeInfo[ssn].university;
         string memory major = storeCandidateDegreeInfo[ssn].major;
         string memory degreeName = storeCandidateDegreeInfo[ssn].degreeName;
         string memory year = storeCandidateDegreeInfo[ssn].year;
-        return (firstName,lastName,university,major,degreeName,year);
+        string memory gpa = storeCandidateDegreeInfo[ssn].gpa;
+        return (firstName,lastName,university,major,degreeName,year, gpa);
     }
 }
